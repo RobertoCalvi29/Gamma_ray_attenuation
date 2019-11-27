@@ -11,6 +11,7 @@ constantes;
 S_exp =0; 
 k= [0 ,0 ,1]; % vecteur unitaire pour la direction unitaire pour la direction en z.
 pos = [1, 4, 7];
+S_d = 4*4; % en cm^2
 hyp_det = zeros(Q,3);
 dist_det = zeros(Q,3);
 theta_d = zeros(Q,3);
@@ -54,9 +55,7 @@ for t = 1 : T
             
             hyp_ecran = sqrt( x_e^2 + r(:,2).^2 ) .* ones(Q,3); % Hypoténuse former par la position de chaque tige et l'écran.
             dist_ecran = sqrt( hyp_ecran.^2 + H(:,3:3:9).^2 ); % Hypoténuse relative à la position initiale due chaque photons et l'écran.
-            theta_e = H(:,3:3:9)./dist_ecran;
-            
-            Fs(theta,y) = quad(@(x)exp(-y*Sigma*sec(theta_e),0,theta_e));
+            %theta_e = H(:,3:3:9)./dist_ecran;
             
             r_e = R + H + dist_ecran .* Omega_s;
             r_i = R + H + dist_det .* Omega_s;
@@ -85,8 +84,13 @@ for t = 1 : T
                             end
                             
                         end
-                        
-                        message = ['Avec écran,  S_exp=', num2str(S_exp)];
+                        h = sqrt(r (3,2)^2+xd^2);
+                        dist= sqrt(h^2+20^2);
+                        theta_e = 20 / dist;
+                        Fs(theta,y) = quad(@(x)exp(-l*Sigma*sec(theta_e),0,theta_e));
+                        I_d = Q/(4*pi*x_d)*F_s;
+                        C_th = I_d*T*S_d;
+                        message = ['Valeur expérimental avec écran,  S_exp=', num2str(S_exp), 'Valeurs théorique= ' , num2str(C_th)];
                     
                     end
 
@@ -113,7 +117,9 @@ for t = 1 : T
                     end
 
                 end
-                message = ['Sans écran,  S_exp=', num2str(S_exp)];
+                I_d = Q/(4*pi*x_d);
+                C_th = I_d*T*S_d;
+                message = ['Valeur expérimental sans écran,  S_exp=', num2str(S_exp), 'Valeurs théorique= ' , num2str(C_th)];
             end
             
     end
