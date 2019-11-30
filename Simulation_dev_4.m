@@ -21,25 +21,54 @@ while sortie == 0 % Boucle s'assure que l'usager entre un nombre valide entre 0 
             
             switch experience % Réalise l'expérience que l'usager à choisit.
                 case  1
-                    message = 'Simulation de l''expérience 1';
-                    C_exp = simule(message ,50);
+                    
+                    message_simulation = 'Simulation de l''expérience 1';
+                    
+                    [C_th, message_res_th] = comptage_theorique(0, 50);
+                    disp(message_res_th)
+                    
+                    C_exp = simule(message_simulation ,50);
                     exit = 1;
+                    
                 case 2
-                    message = 'Simulation de l''expérience 2';
-                    C_exp = simule(message ,100);
+                    
+                    message_simulation = 'Simulation de l''expérience 2';
+                    
+                    [C_th, message_res_th] = comptage_theorique(0, 100);
+                    disp(message_res_th)
+                    
+                    C_exp = simule(message_simulation ,100);
                     exit = 1;
+                    
                 case 3
-                    message = 'Simulation de l''expérience 3';
-                    C_exp = simule(message,50, 20 ,2);
+                    message_simulation = 'Simulation de l''expérience 3';
+                    
+                    [C_th, message_res_th] = comptage_theorique(1, 50);
+                    disp(message_res_th)
+                    
+                    C_exp = simule(message_simulation,50, 20 ,2);
                     exit = 1;
+                    
                 case 4
-                    message = 'Simulation de l''expérience 4';
-                    C_exp = simule(message, 50, 40 ,2);
+                    
+                    message_simulation = 'Simulation de l''expérience 4';
+                    
+                    [C_th, message_res_th] = comptage_theorique(1, 50);
+                    disp(message_res_th)
+                    
+                    C_exp = simule(message_simulation, 50, 40 ,2);
                     exit = 1;
+                    
                 case  5
-                    message = 'Simulation de l''expérience 5';
-                    C_exp = simule(message, 50, 40, 4);
+                   
+                    message_simulation = 'Simulation de l''expérience 5';
+                    
+                    [C_th, message_res_th] = comptage_theorique(1, 50);
+                    disp(message_res_th)
+                    
+                    C_exp  = simule(message_simulation, 50, 40, 4);
                     exit = 1;
+                    
                 otherwise
                    experience = input('Entrer non valid, veuillez entrer un nombre entre 1 et 5: ');
             end
@@ -49,6 +78,11 @@ while sortie == 0 % Boucle s'assure que l'usager entre un nombre valide entre 0 
 
     elseif (1 <= N) && (N <= 10)  % Réalise l'expérience N fois  
         
+        [C_th_sans ,message_res_th_sans] = comptage_theorique(0, 50); % Valeur théorique avec écran
+        disp(message_res_th_sans)
+        [C_th_avec, message_res_th_sans] = comptage_theorique(1, 50); % Valeur théorique sans écran
+        disp(message_res_th_sans)
+        
         sortie =1;
         simulations =  { 50; 100; [50, 20, 2]; [50, 40 ,2]; [50, 40, 4] };
         
@@ -56,20 +90,28 @@ while sortie == 0 % Boucle s'assure que l'usager entre un nombre valide entre 0 
             iteration = num2str(n);
             for i = 1:5
                 exprience = num2str(i);
-                message = ['Simulation de l''expérience' , exprience , ' N=' , iteration];
-                C_exp(i,n) = simule( message, simulations{i,1});
+                message_simulation = ['Simulation de l''expérience' , exprience , ' N=' , iteration];
+                C_exp(i,n) = simule( message_simulation, simulations{i,1});
             end
             
         end
         
-        C_th = 
-        C_exp_moy = zeros(5);
         for i = 1:5
+            
             C_exp_moy(i) = mean(C_exp(i,:));
+            
             var = (100/C_exp_moy(i)).*sqrt( mean( (C_exp(i,:) - C_exp_moy(i)).^2 ) );
+            
+            if i <= 2 
+                D_sans = 100.*( (C_exp_moy(i)-C_th_sans)./C_th_sans );
+            else
+                D_avec = 100.*( (C_exp_moy(i)-C_th_avec)./C_th_avec );
+            
+            end
+            
         end
         
-        D = 100.*( (C_exp_moy-C_th)./C_th );
+        
         csvwrite('results.csv',C_exp)
         
         disp('Voici le tableau du comptage pour chaque expérience et pour chaque itérations:')
