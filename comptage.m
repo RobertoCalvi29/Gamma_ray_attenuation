@@ -48,7 +48,7 @@ for t = 1 : T
     
     for i =1:3
         for j =1:1000
-            Omega_s(j,pos(i):3*i) = dist_det(j,i).*Omega_s(j,pos(i):3*i);
+            Omega_s(j,pos(i):3*i) = dist_det(j,i).*omega_s(j,pos(i):3*i);
         end
     end
 
@@ -96,7 +96,6 @@ for t = 1 : T
             
         % Pour sans écran.
         case 2
-            disp(C_exp)
             r_i = R + H + Omega_s; % Tenseur contenant le  trajet des photon partant de chaques sources dim(1000 x 9).
     
             % Vérification que le photon a été détecté
