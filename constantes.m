@@ -6,7 +6,6 @@ h_s = 40; % Hauteur des détecteurs.
 Sigma = 0.5; % Section efficace du matériel constituant le détecteur en (cm-1).
 nb_photons = 3 * 10 ^ 6; % Nombres de photons émis par lignes.
 T = 5 * 60; % Période de comptage fixe en (seconde).
-c = 3 * 10 ^ 10; % Vitesse de la lumière en (cm/s).
 C_exp =0;% comptage initiale 
 k= [0 ,0 ,1]; % vecteur unitaire pour la direction unitaire pour la direction en z.
 pos = [1, 4, 7];% vecteur position utile pour constructiondes tenseur.

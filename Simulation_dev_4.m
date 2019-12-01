@@ -43,8 +43,8 @@ while sortie == 0 % Boucle s'assure que l'usager entre un nombre valide entre 0 
                 case 3
                     message_simulation = 'Simulation de l''expérience 3';
                     
-                    [C_th, message_res_th] = comptage_theorique(1, 50);
-                    disp(message_res_th)
+                    %[C_th, message_res_th] = comptage_theorique(1, 50);
+                    %disp(message_res_th)
                     
                     C_exp = simule(message_simulation,50, 20 ,2);
                     exit = 1;
