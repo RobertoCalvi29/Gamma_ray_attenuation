@@ -110,7 +110,8 @@ while sortie == 0 % Boucle s'assure que l'usager entre un nombre valide entre 0 
             end
             
         end
-        temps = toc
+        temps = toc;
+        fprintf(' Le temps de simulation fut de %d  (en secondes)', round(temps));
         
         % Calcul des moyennes
         for i = 1:5
