@@ -24,6 +24,7 @@ phi = 2 * pi * a_2;
 mu = 2 * a_3 -1;
 Omega_s = [ cos(phi) .* sqrt( 1 - mu.^2 ) , sin(phi) .* sqrt( 1 - mu.^2 ), mu ];
 t = x_d./Omega_s(:,pos);
+ 
 
 % elimination des photon partant du sens oposé au détecteur
 eliminationx = t>0;

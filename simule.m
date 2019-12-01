@@ -2,8 +2,7 @@ function C_exp = simule(message, x_d, x_e, l)
 %INITIALISATION 
 %   Detailed explanation goes here
 
-disp(message);
-
+warning(message);
 % Conditions adapter la simulation pour avec ou sans écran. 
 switch nargin 
     
