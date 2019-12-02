@@ -10,9 +10,8 @@ hyp_xd = sqrt(x_d^2 + 10^2);
 
 x = [hyp_xd; x_d; hyp_xd];
 
-theta_1 = atan( (h_s/2) ./ x ); % angle pour calcul de l'int de Sievert pour tiges décalés
-theta_2 = atan( (-h_s/2)./ x  ); % angle pour calcul de l'int de Sievert pour tige centrale
-theta_max = [theta_1, theta_2, theta_1]; % vecteur pour chaques valeurs max d'angle.
+theta_2 = atan( (h_s/2) ./ x ); % angle pour calcul de l'int de Sievert pour tiges décalés
+theta_1 = atan( (-h_s/2)./ x  ); % angle pour calcul de l'int de Sievert pour tige centrale
 
 Ql = Q/h_s;
 
@@ -24,7 +23,7 @@ switch ecran
         C_th = zeros(1,3);
         
         for i=1:3
-            I_d(i) = (Ql/(4*pi*x(i)))*(theta_1(i) - theta_2(i));
+            I_d(i) = (Ql/(4*pi*x(i)))*(theta_2(i) - theta_1(i));
             C_th(i) = I_d(i)*T*S_d;
         end
         
@@ -38,7 +37,7 @@ switch ecran
         
         for i =1:3
             F = @(theta) exp(-y(i)*sec(theta));
-            I_d(i) = (Ql/(4*pi*x(i)))*(quad(F,0,theta_1(i)) - quad(F,0,theta_2(i)));
+            I_d(i) = (Ql/(4*pi*x(i)))*(integral(F,0,theta_2(i)) - integral(F,0,theta_1(i)));
             C_th(i) = I_d(i)*T*S_d;
         end
         

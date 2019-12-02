@@ -18,10 +18,9 @@ a_3 = rand(nb_photons, 3);
 phi = 2*pi*a_2;
 mu = 2*a_3-1;
 
-Omega_s = [ cos(phi).*sqrt(1-mu.^2), sin(phi).*sqrt(1-mu.^2), mu ];
-Omega_sx = Omega_s(:,pos);
-Omega_sy = Omega_s(:,pos+1);
-Omega_sz = Omega_s(:,pos+2);
+Omega_sx = cos(phi).*sqrt(1-mu.^2);
+Omega_sy =  sin(phi).*sqrt(1-mu.^2);
+Omega_sz = mu;
 
 % elimination des photon partant du sens oposé au détecteur
 eliminationx = find(Omega_sx>0);
